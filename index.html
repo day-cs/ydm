@@ -3,346 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YDM อินโฟกราฟิก: AI และความมั่นคงทางไซเบอร์ 2025</title>
+    <title>AI SAFETY ALERT 2025 - YDM THAILAND</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 
+    Narrative Plan:
+    1.  Header: Main Alert Title.
+    2.  Section 1 (ใช้ AI อย่างมีวิจารณญาณ): Introduction to cautious AI use. Donut chart for AI's nature.
+    3.  Section 2 (ห้ามป้อนข้อมูลลับ): Data secrecy. Bar chart for types of confidential data and their illustrative risk.
+    4.  Section 3 (ปกป้องตัวตนและสิทธิ์ของผู้อื่น): Ethical AI use. List of prohibited actions with icons.
+    5.  Section 4 (ระวัง Deepfake & AI Scam): AI threats. Big number for scam prevalence + HTML/CSS flowchart for verification.
+    6.  Section 5 (อัปเดตความรู้ AI อยู่เสมอ): Continuous learning. Bar chart for learning channels.
+    7.  Section 6 (สรุปแนวทาง): Key takeaways list.
+    8.  Section 7 (ติดต่อ): Contact information.
+    9.  Footer: Confirmation.
+
+    Visualization Choices:
+    -   Section 1 Data: AI's nature (expert vs. tool). Goal: Inform. Visualization: Donut Chart (Chart.js). Justification: Shows proportion of AI's role needing human judgment. No SVG.
+    -   Section 2 Data: Types of confidential data (ลูกค้า, งบการเงิน, แผนการตลาด, Password). Goal: Compare. Visualization: Bar Chart (Chart.js) - Illustrative Risk Levels. Justification: Compares distinct categories of sensitive data. Label wrapping applied. No SVG.
+    -   Section 3 Data: Prohibited actions (ละเมิดสิทธิ์, Deepfake, etc.). Goal: Organize. Visualization: Styled HTML List with Unicode icons. Justification: Clear, direct for rules. No SVG.
+    -   Section 4 Data: AI scam prevalence & verification. Goal: Inform/Organize. Visualization: Large Text (HTML/CSS) + HTML/CSS Flowchart. Justification: Impact and process illustration. No SVG, No Mermaid JS.
+    -   Section 5 Data: Learning channels (เวิร์กช็อป, ทีม IT, เพื่อนร่วมงาน). Goal: Compare. Visualization: Horizontal Bar Chart (Chart.js) - Illustrative Importance/Effectiveness. Justification: Compares different avenues for learning. Label wrapping applied. No SVG.
+    -   Section 6 Data: Summary points. Goal: Organize. Visualization: Styled HTML List with Unicode checkmarks. Justification: Concise summary. No SVG.
+    -   Section 7 Data: Contact points. Goal: Inform. Visualization: Text with Unicode icons. Justification: Clear call to action. No SVG.
+
+    Color Palette Chosen: "Brilliant Blues" (#0077B6, #00B4D8, #90E0EF, #CAF0F8) with appropriate text colors for contrast.
+
+    Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. All diagrams/icons are HTML/CSS or Unicode.
+    -->
     <style>
-        body { font-family: 'Kanit', sans-serif; }
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #CAF0F8; /* Lightest Blue from Brilliant Blues */
+        }
         .chart-container {
-            position: relative; 
+            position: relative;
+            width: 100%;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            height: 288px; /* md:h-72 */
+            height: 300px; 
+            max-height: 400px;
         }
-        @media (min-width: 768px) { /* md breakpoint */
+        @media (min-width: 768px) {
             .chart-container {
-                height: 320px; /* md:h-80, slightly adjusted for better fit */
+                height: 350px;
             }
         }
-        .flowchart-arrow {
-            font-size: 1.5rem; /* text-2xl */
-            line-height: 2rem; /* text-2xl */
-            margin-top: 0.25rem; /* my-1 */
-            margin-bottom: 0.25rem; /* my-1 */
+        .flowchart-step {
+            border: 2px solid #0077B6;
+            background-color: white;
+            color: #0077B6;
         }
-        .section-intro {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+        .flowchart-arrow {
+            font-size: 2rem;
+            color: #0077B6;
+            line-height: 1;
+        }
+        .icon-bullet {
+            color: #0077B6;
+            margin-right: 0.5rem;
         }
     </style>
 </head>
-<body class="bg-[#F7FFF7] text-[#1A535C]">
-    <div class="container mx-auto p-4 md:p-8">
+<body class="text-gray-800">
+
+    <header class="bg-[#0077B6] text-white p-6 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">📢 AI SAFETY ALERT 2025</h1>
+            <p class="text-xl mt-1">สิ่งที่พนักงาน YDM THAILAND ต้องรู้!</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
         
-        <header class="text-center py-10 md:py-12 bg-gradient-to-r from-[#1A535C] to-[#4ECDC4] text-white rounded-xl shadow-2xl mb-10 md:mb-12">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-3">AI และความมั่นคงทางไซเบอร์ 2025</h1>
-            <p class="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#FFE66D] mb-6">ดาบสองคมแห่งโลกดิจิทัล</p>
-            <div class="text-5xl md:text-7xl font-bold text-white bg-[#FF6B6B] inline-block px-6 py-3 rounded-lg shadow-lg">
-                <span>54%</span>
+        <section id="critical-thinking" class="mb-12">
+            <div class="bg-white rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow duration-300">
+                <h2 class="text-2xl font-semibold text-[#0077B6] mb-4 flex items-center">
+                    <span class="text-3xl mr-3">🧠</span> 1. ใช้ AI อย่างมีวิจารณญาณ
+                </h2>
+                <p class="mb-4 text-lg">AI เป็นเครื่องมือที่มีประสิทธิภาพ แต่ไม่ใช่ผู้เชี่ยวชาญที่สามารถตัดสินใจแทนเราได้ทั้งหมด การตรวจสอบความถูกต้องของข้อมูลที่ได้รับจาก AI และการไม่เชื่อถือ AI 100% โดยขาดการไตร่ตรองเป็นสิ่งสำคัญอย่างยิ่ง เพื่อให้การนำ AI มาใช้เกิดประโยชน์สูงสุดและลดความเสี่ยงที่อาจเกิดขึ้น</p>
+                <div class="chart-container mx-auto h-64 md:h-80">
+                    <canvas id="aiNatureChart"></canvas>
+                </div>
+                <p class="text-center mt-4 text-sm text-gray-600">แผนภูมินี้แสดงสัดส่วนโดยประมาณของข้อมูลจาก AI ที่ควรผ่านการตรวจสอบอย่างละเอียดก่อนนำไปใช้</p>
             </div>
-            <p class="text-lg md:text-xl font-normal mt-4 max-w-xl mx-auto">คืออัตราการคลิกผ่านอีเมลฟิชชิ่งที่สร้างโดย AI ซึ่งสูงกว่าอีเมลที่มนุษย์สร้าง (12%) อย่างมีนัยสำคัญ</p>
-        </header>
+        </section>
 
-        <main class="space-y-10 md:space-y-12">
-
-            <section id="threats" class="bg-white p-6 md:p-8 rounded-xl shadow-xl">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#1A535C] mb-3 text-center">ภูมิทัศน์ภัยคุกคามจาก AI: อาวุธไซเบอร์ที่ทรงพลังยิ่งขึ้น</h2>
-                <p class="text-center text-gray-700 mb-8 section-intro">ปัญญาประดิษฐ์ (AI) ไม่ได้เป็นเพียงเครื่องมือป้องกัน แต่ยังถูกผู้ไม่หวังดีนำมาใช้เป็นอาวุธเพื่อสร้างการโจมตีทางไซเบอร์ที่ซับซ้อน รวดเร็ว และหลบเลี่ยงการตรวจจับได้เก่งกาจกว่าที่เคยเป็นมา ความสามารถของ AI ในการเรียนรู้ ปรับตัว และทำงานอัตโนมัติ ทำให้องค์กรต่างๆ ทั่วโลกต้องเผชิญกับความท้าทายครั้งใหญ่ในการปกป้องข้อมูล ทรัพย์สิน และระบบที่สำคัญของตน</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                    <div class="bg-red-50 p-6 rounded-lg shadow-lg border-l-4 border-[#FF6B6B]">
-                        <h3 class="text-xl md:text-2xl font-semibold text-[#FF6B6B] mb-3">มัลแวร์และ Zero-Days อัจฉริยะ</h3>
-                        <p class="text-gray-700 mb-4">AI ช่วยให้อาชญากรไซเบอร์พัฒนา <span class="font-semibold">มัลแวร์ Polymorphic</span> ที่เปลี่ยนแปลงตัวเองเพื่อหลบเลี่ยงการตรวจจับ และ Generative AI สามารถสร้าง <span class="font-semibold">โค้ดสำหรับช่องโหว่ Zero-day</span> ได้ในเวลาเพียงไม่กี่ชั่วโมงหลังการเปิดเผยช่องโหว่ใหม่</p>
-                        <div class="chart-container w-full max-w-lg">
-                            <canvas id="malwareTrendChart"></canvas>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-3 text-center">แนวโน้มความซับซ้อนของมัลแวร์ที่ขับเคลื่อนด้วย AI (ดัชนีความซับซ้อน)</p>
+        <section id="data-privacy" class="mb-12">
+            <div class="bg-white rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow duration-300">
+                <h2 class="text-2xl font-semibold text-[#0077B6] mb-4 flex items-center">
+                    <span class="text-3xl mr-3">🔒</span> 2. ห้ามป้อนข้อมูลลับ
+                </h2>
+                <p class="mb-4 text-lg">ข้อมูลที่ป้อนเข้าสู่ระบบ AI มีโอกาสรั่วไหลสู่ภายนอกได้เสมอ ดังนั้นจึงเป็นเรื่องสำคัญอย่างยิ่งที่จะต้องไม่นำข้อมูลที่เป็นความลับของบริษัทหรือข้อมูลส่วนบุคคลเข้าสู่ระบบ AI เพื่อป้องกันความเสียหายที่อาจตามมา</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <h3 class="text-xl font-medium text-[#00B4D8] mb-3">✅ อย่าใส่ข้อมูลเหล่านี้ใน AI:</h3>
+                        <ul class="space-y-2 text-lg">
+                            <li class="flex items-center"><span class="icon-bullet">🚫</span>ข้อมูลลูกค้า</li>
+                            <li class="flex items-center"><span class="icon-bullet">🚫</span>งบการเงิน</li>
+                            <li class="flex items-center"><span class="icon-bullet">🚫</span>แผนการตลาด</li>
+                            <li class="flex items-center"><span class="icon-bullet">🚫</span>Password หรือข้อมูลส่วนตัว</li>
+                        </ul>
+                        <p class="mt-3 text-sm text-red-600 font-semibold">การป้อนข้อมูลเหล่านี้มีความเสี่ยงสูงมาก!</p>
                     </div>
-
-                    <div class="bg-red-50 p-6 rounded-lg shadow-lg border-l-4 border-[#FF6B6B]">
-                        <h3 class="text-xl md:text-2xl font-semibold text-[#FF6B6B] mb-3">วิศวกรรมสังคมและการหลอกลวงขั้นสูง</h3>
-                        <p class="text-gray-700 mb-4">AI ถูกใช้สร้างอีเมลฟิชชิ่ง, Deepfake เสียงและวิดีโอที่สมจริงอย่างยิ่ง ทำให้การหลอกลวงมนุษย์ทำได้ง่ายและได้ผลมากขึ้น โดยเฉพาะอย่างยิ่งเมื่อมนุษย์ยังคงเป็นจุดอ่อนสำคัญในห่วงโซ่ความปลอดภัย</p>
-                        <div class="chart-container w-full max-w-xs sm:max-w-sm md:max-w-md h-56 sm:h-64 md:h-72">
-                             <canvas id="phishingSuccessChart"></canvas>
-                        </div>
-                        <p class="text-gray-700 mt-4"><span class="font-semibold">Deepfake:</span> เกิดเหตุการณ์ฉ้อโกงมูลค่า <span class="font-semibold text-[#FF6B6B]">35 ล้านดอลลาร์ฮ่องกง</span> ผ่านวิดีโอคอลปลอม CFO</p>
-                        <p class="text-gray-700 mt-1"><span class="font-semibold">Vishing:</span> 80% ของการโจมตี Vishing (ฟิชชิ่งด้วยเสียง) ใช้ AI ปลอมเสียงบุคคลที่น่าเชื่อถือ</p>
-                    </div>
-
-                    <div class="bg-red-50 p-6 rounded-lg shadow-lg border-l-4 border-[#FF6B6B] md:col-span-2">
-                        <h3 class="text-xl md:text-2xl font-semibold text-[#FF6B6B] mb-4 text-center">การโจมตีระบบ AI โดยตรงและภัยคุกคามที่ขยายผล</h3>
-                        <p class="text-gray-700 mb-6 text-center section-intro">นอกจากการใช้ AI เพื่อโจมตีเป้าหมายภายนอกแล้ว ผู้โจมตียังมุ่งเป้าไปที่จุดอ่อนของโมเดล AI โดยตรง และใช้ AI เพื่อขยายผลกระทบของภัยคุกคามในวงกว้าง เช่น การโจมตีห่วงโซ่อุปทาน</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
-                            <div class="p-4 bg-white rounded-xl shadow-md">
-                                <span class="text-4xl">🧪</span>
-                                <h4 class="font-semibold mt-2 text-lg">การวางยาข้อมูล</h4>
-                                <p class="text-sm text-gray-600">แทรกข้อมูลอันตรายเพื่อบิดเบือนการเรียนรู้ของโมเดล AI</p>
-                            </div>
-                            <div class="p-4 bg-white rounded-xl shadow-md">
-                                <span class="text-4xl">🎯</span>
-                                <h4 class="font-semibold mt-2 text-lg">การฉีดพรอมต์</h4>
-                                <p class="text-sm text-gray-600">หลอกให้ LLM ทำงานนอกเหนือคำสั่งที่ออกแบบไว้ หรือเปิดเผยข้อมูลลับ</p>
-                            </div>
-                            <div class="p-4 bg-white rounded-xl shadow-md">
-                                <span class="text-4xl">🔗</span>
-                                <h4 class="font-semibold mt-2 text-lg">โจมตีห่วงโซ่อุปทาน</h4>
-                                <p class="text-sm text-gray-600">AI ช่วยระบุและแทรกซึมช่องโหว่ในซัพพลายเออร์ คาดความเสียหายหลายพันล้านดอลลาร์</p>
-                            </div>
-                        </div>
+                    <div class="chart-container mx-auto h-72 md:h-96">
+                        <canvas id="confidentialDataChart"></canvas>
                     </div>
                 </div>
-            </section>
+                 <p class="text-center mt-4 text-sm text-gray-600">แผนภูมินี้แสดงระดับความเสี่ยง (ตัวอย่าง) ของข้อมูลประเภทต่างๆ หากรั่วไหล</p>
+            </div>
+        </section>
 
-            <section id="defenses" class="bg-white p-6 md:p-8 rounded-xl shadow-xl">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#1A535C] mb-3 text-center">AI ในฐานะโล่ป้องกัน: พัฒนาการของการป้องกันทางไซเบอร์</h2>
-                <p class="text-center text-gray-700 mb-8 section-intro">ในขณะที่ AI ถูกใช้เป็นอาวุธ มันก็เป็นเครื่องมือที่ทรงพลังที่สุดในการป้องกันเช่นกัน ความสามารถของ AI ในการวิเคราะห์ข้อมูลจำนวนมหาศาล ตรวจจับรูปแบบที่ซับซ้อน และตอบสนองโดยอัตโนมัติ กำลังปฏิวัติวิธีการที่องค์กรใช้ป้องกันตนเองจากภัยคุกคามทางไซเบอร์ที่พัฒนาอย่างไม่หยุดยั้ง</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                    <div class="bg-sky-50 p-6 rounded-lg shadow-lg border-l-4 border-[#4ECDC4]">
-                        <h3 class="text-xl md:text-2xl font-semibold text-[#4ECDC4] mb-3">ตรวจจับเรียลไทม์และตอบสนองอัตโนมัติ</h3>
-                        <p class="text-gray-700 mb-4">ระบบ AI สามารถวิเคราะห์ข้อมูลเครือข่ายและพฤติกรรมผู้ใช้เพื่อตรวจจับความผิดปกติและตอบสนองต่อภัยคุกคามโดยอัตโนมัติผ่านแพลตฟอร์ม SOAR ลดเวลาการตอบสนองจากเดิมที่อาจใช้เวลาหลายวันเหลือเพียงไม่กี่นาทีหรือวินาที</p>
-                        <div class="chart-container w-full max-w-lg">
-                            <canvas id="responseTimesChart"></canvas>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-3 text-center">การลดเวลาตอบสนองต่อเหตุการณ์ด้วย AI และ SOAR</p>
-                    </div>
-
-                    <div class="bg-sky-50 p-6 rounded-lg shadow-lg border-l-4 border-[#4ECDC4]">
-                        <h3 class="text-xl md:text-2xl font-semibold text-[#4ECDC4] mb-3">กลยุทธ์เชิงรุกและการตอบโต้</h3>
-                        <p class="text-gray-700 mb-4">AI ไม่เพียงแค่รอตั้งรับ แต่ยังช่วยให้องค์กรสามารถดำเนินกลยุทธ์เชิงรุกเพื่อลดความเสี่ยงได้อีกด้วย</p>
-                        <ul class="space-y-3 text-gray-700">
-                            <li class="flex items-start">
-                                <span class="text-2xl mr-3 text-[#4ECDC4]">🎯</span>
-                                <div><span class="font-semibold">การล่าภัยคุกคามด้วย AI:</span> AI ช่วยนักวิเคราะห์ค้นหาภัยคุกคามที่ซ่อนเร้นในระบบ ก่อนที่จะสร้างความเสียหายในวงกว้าง</div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-2xl mr-3 text-[#4ECDC4]">🛡️</span>
-                                <div><span class="font-semibold">เทคโนโลยีตรวจจับ Deepfake:</span> AI ถูกพัฒนาขึ้นเพื่อวิเคราะห์และระบุสื่อสังเคราะห์ ลดผลกระทบจากข้อมูลบิดเบือนและการฉ้อโกง</div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-2xl mr-3 text-[#4ECDC4]">💰</span>
-                                <div><span class="font-semibold">AI ป้องกันการฉ้อโกงทางการเงิน:</span> กว่า 90% ของสถาบันการเงินกำลังใช้โซลูชัน AI เพื่อตรวจจับและป้องกันการฉ้อโกงแบบเรียลไทม์</div>
-                            </li>
+        <section id="rights-protection" class="mb-12">
+            <div class="bg-white rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow duration-300">
+                <h2 class="text-2xl font-semibold text-[#0077B6] mb-4 flex items-center">
+                    <span class="text-3xl mr-3">👤</span> 3. ปกป้องตัวตนและสิทธิ์ของผู้อื่น
+                </h2>
+                <p class="mb-6 text-lg">การใช้ AI จะต้องเคารพสิทธิ์และความเป็นส่วนตัวของผู้อื่นเสมอ หลีกเลี่ยงการสร้างเนื้อหาที่อาจละเมิดสิทธิ์ สร้างความเข้าใจผิด หรือสร้างความเสียหายต่อบุคคลอื่น</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="border border-[#00B4D8] rounded-lg p-4 bg-[#CAF0F8]/30">
+                        <h3 class="font-semibold text-[#0077B6] mb-1">ห้ามใช้ AI เพื่อ:</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700">
+                            <li>สร้างเนื้อหาที่เสี่ยงละเมิดสิทธิ์</li>
+                            <li>สร้างเนื้อหาที่เป็นเท็จหรือหลอกลวง</li>
                         </ul>
                     </div>
-
-                    <div class="bg-sky-50 p-6 rounded-lg shadow-lg border-l-4 border-[#4ECDC4] md:col-span-2">
-                        <h3 class="text-xl md:text-2xl font-semibold text-[#4ECDC4] mb-4 text-center">การพัฒนา AI ที่ปลอดภัย (MLSecOps)</h3>
-                        <p class="text-gray-700 mb-6 text-center section-intro">หลักการ <span class="font-semibold">"ปลอดภัยตั้งแต่การออกแบบ" (Secure by Design)</span> และกรอบการทำงาน MLSecOps (Machine Learning Security Operations) คือหัวใจสำคัญในการสร้างระบบ AI ที่มั่นคงและน่าเชื่อถือตั้งแต่เริ่มต้น โดยผสานรวมความปลอดภัยเข้ากับทุกขั้นตอนของวงจรชีวิตการพัฒนา AI</p>
-                        <div class="flex flex-col sm:flex-row justify-around items-center text-center space-y-4 sm:space-y-0 sm:space-x-2">
-                            <div class="flex flex-col items-center p-2">
-                                <div class="p-3 bg-white rounded-lg shadow w-28 sm:w-32 h-16 sm:h-20 flex items-center justify-center border border-[#4ECDC4] text-sm sm:text-base">ออกแบบ (Design)</div>
-                            </div>
-                            <div class="flowchart-arrow text-[#4ECDC4] sm:rotate-0 rotate-90">➔</div>
-                            <div class="flex flex-col items-center p-2">
-                                <div class="p-3 bg-white rounded-lg shadow w-28 sm:w-32 h-16 sm:h-20 flex items-center justify-center border border-[#4ECDC4] text-sm sm:text-base">พัฒนา (Develop)</div>
-                            </div>
-                            <div class="flowchart-arrow text-[#4ECDC4] sm:rotate-0 rotate-90">➔</div>
-                            <div class="flex flex-col items-center p-2">
-                               <div class="p-3 bg-white rounded-lg shadow w-28 sm:w-32 h-16 sm:h-20 flex items-center justify-center border border-[#4ECDC4] text-sm sm:text-base">ทดสอบ (Test)</div>
-                            </div>
-                            <div class="flowchart-arrow text-[#4ECDC4] sm:rotate-0 rotate-90">➔</div>
-                             <div class="flex flex-col items-center p-2">
-                                <div class="p-3 bg-white rounded-lg shadow w-28 sm:w-32 h-16 sm:h-20 flex items-center justify-center border border-[#4ECDC4] text-sm sm:text-base">ใช้งาน (Deploy)</div>
-                            </div>
-                             <div class="flowchart-arrow text-[#4ECDC4] sm:rotate-0 rotate-90">➔</div>
-                            <div class="flex flex-col items-center p-2">
-                                <div class="p-3 bg-white rounded-lg shadow w-28 sm:w-32 h-16 sm:h-20 flex items-center justify-center border border-[#4ECDC4] text-sm sm:text-base">ตรวจสอบ (Monitor)</div>
-                            </div>
-                        </div>
-                        <p class="text-gray-700 mt-6 text-center"><span class="font-semibold">AI Red Teaming:</span> การทดสอบระบบ AI เชิงรุกโดยผู้เชี่ยวชาญ เพื่อค้นหาช่องโหว่และอคติที่อาจถูกมองข้าม</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="governance" class="bg-white p-6 md:p-8 rounded-xl shadow-xl">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#1A535C] mb-3 text-center">การกำกับดูแลและมาตรฐาน: สร้างความเชื่อมั่นใน AI</h2>
-                <p class="text-center text-gray-700 mb-8 section-intro">การเติบโตอย่างรวดเร็วของ AI ได้กระตุ้นให้เกิดการพัฒนากรอบการกำกับดูแลและมาตรฐานทั่วโลก เพื่อจัดการกับความเสี่ยงด้านความปลอดภัยและจริยธรรมที่เกิดขึ้นใหม่ การปฏิบัติตามข้อกำหนดเหล่านี้ไม่เพียงแต่ช่วยลดความเสี่ยงทางกฎหมาย แต่ยังสร้างความไว้วางใจให้กับผู้ใช้งานและสังคมโดยรวม</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-yellow-50 p-6 rounded-xl shadow-lg border-t-4 border-[#FFE66D]">
-                        <h4 class="text-xl font-semibold text-yellow-800 mb-2">📜 EU AI Act</h4>
-                        <p class="text-sm text-gray-700">กฎหมาย AI ฉบับแรกของโลกจากสหภาพยุโรป ใช้แนวทางตามระดับความเสี่ยง กำหนดกฎเกณฑ์เข้มงวดสำหรับ AI ความเสี่ยงสูง และเน้นความโปร่งใส</p>
-                    </div>
-                    <div class="bg-yellow-50 p-6 rounded-xl shadow-lg border-t-4 border-[#FFE66D]">
-                        <h4 class="text-xl font-semibold text-yellow-800 mb-2">🛡️ NIST AI RMF</h4>
-                        <p class="text-sm text-gray-700">กรอบการบริหารความเสี่ยง AI จากสถาบันมาตรฐานและเทคโนโลยีแห่งชาติสหรัฐฯ (NIST) เป็นแนวทางสำหรับองค์กรในการจัดการความเสี่ยงตลอดวงจรชีวิต AI</p>
-                    </div>
-                    <div class="bg-yellow-50 p-6 rounded-xl shadow-lg border-t-4 border-[#FFE66D]">
-                        <h4 class="text-xl font-semibold text-yellow-800 mb-2">🔐 OWASP LLM Top 10</h4>
-                        <p class="text-sm text-gray-700">ระบุช่องโหว่ด้านความปลอดภัยที่สำคัญที่สุด 10 ประการสำหรับโมเดลภาษาขนาดใหญ่ (LLM) พร้อมแนวทางป้องกัน เช่น Prompt Injection</p>
-                    </div>
-                </div>
-                <div class="mt-8 bg-gray-100 p-6 rounded-xl shadow-inner">
-                    <h4 class="text-xl md:text-2xl font-semibold text-[#1A535C] mb-4 text-center">หลักการ AI ที่มีความรับผิดชอบ (Responsible AI)</h4>
-                     <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-700">
-                        <li class="flex items-center p-3 bg-white rounded-lg shadow-md"><span class="text-2xl mr-3 text-green-500">✔️</span> ความเป็นธรรมและลดอคติ</li>
-                        <li class="flex items-center p-3 bg-white rounded-lg shadow-md"><span class="text-2xl mr-3 text-green-500">✔️</span> ความโปร่งใสและอธิบายได้ (XAI)</li>
-                        <li class="flex items-center p-3 bg-white rounded-lg shadow-md"><span class="text-2xl mr-3 text-green-500">✔️</span> ความรับผิดชอบและการตรวจสอบได้</li>
-                        <li class="flex items-center p-3 bg-white rounded-lg shadow-md"><span class="text-2xl mr-3 text-green-500">✔️</span> ความเป็นส่วนตัวของข้อมูล</li>
-                        <li class="flex items-center p-3 bg-white rounded-lg shadow-md"><span class="text-2xl mr-3 text-green-500">✔️</span> ความปลอดภัยและความทนทาน</li>
-                        <li class="flex items-center p-3 bg-white rounded-lg shadow-md"><span class="text-2xl mr-3 text-green-500">✔️</span> การกำกับดูแลโดยมนุษย์</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="challenges" class="bg-white p-6 md:p-8 rounded-xl shadow-xl">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#1A535C] mb-3 text-center">เส้นทางข้างหน้า: ความท้าทายและกลยุทธ์สำคัญ</h2>
-                <p class="text-center text-gray-700 mb-8 section-intro">แม้ว่า AI จะมีศักยภาพมหาศาลในการเสริมสร้างความมั่นคงทางไซเบอร์ แต่การนำไปใช้อย่างมีประสิทธิภาพยังคงเผชิญกับอุปสรรคสำคัญหลายประการ การทำความเข้าใจความท้าทายเหล่านี้และการวางกลยุทธ์ที่เหมาะสม จะเป็นกุญแจสู่ความสำเร็จขององค์กรในอนาคต</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                    <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-                        <h3 class="text-xl md:text-2xl font-semibold text-[#FF6B6B] mb-4">ความท้าทายหลักที่ต้องเผชิญ</h3>
-                        <ul class="space-y-4">
-                            <li class="flex items-start p-4 bg-white rounded-lg shadow">
-                                <span class="text-3xl mr-4 mt-1">🧠</span>
-                                <div><span class="font-semibold text-lg">การขาดแคลนบุคลากร AI:</span> ความต้องการผู้เชี่ยวชาญด้าน AI และความปลอดภัย AI มีสูงกว่าจำนวนบุคลากรที่มีอยู่ ทำให้เกิดช่องว่างทักษะในการพัฒนาและจัดการระบบ AI อย่างมีประสิทธิภาพ</div>
-                            </li>
-                            <li class="flex items-start p-4 bg-white rounded-lg shadow">
-                                <span class="text-3xl mr-4 mt-1">❓</span>
-                                <div><span class="font-semibold text-lg">ปัญหา "กล่องดำ" ของ AI:</span> ความซับซ้อนและลักษณะที่ทึบแสงของโมเดล AI หลายตัว ทำให้ยากต่อการทำความเข้าใจกระบวนการตัดสินใจ ซึ่งเป็นอุปสรรคต่อการตรวจสอบและสร้างความไว้วางใจ</div>
-                            </li>
-                            <li class="flex items-start p-4 bg-white rounded-lg shadow">
-                                <span class="text-3xl mr-4 mt-1">⚔️</span>
-                                <div><span class="font-semibold text-lg">"การแข่งขันด้านอาวุธ AI":</span> ภัยคุกคามที่ขับเคลื่อนด้วย AI และเทคนิคการป้องกันมีการพัฒนาอย่างรวดเร็วและต่อเนื่อง ทำให้องค์กรต้องปรับตัวและลงทุนในเทคโนโลยีใหม่ๆ อยู่เสมอ</div>
-                            </li>
+                    <div class="border border-[#00B4D8] rounded-lg p-4 bg-[#CAF0F8]/30">
+                        <h3 class="font-semibold text-[#0077B6] mb-1">ข้อควรระวังพิเศษ:</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700">
+                            <li>หลีกเลี่ยง Deepfake โดยเด็ดขาด</li>
+                            <li>ห้ามใช้ภาพ/เสียงของบุคคลโดยไม่ได้รับอนุญาต</li>
                         </ul>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-                        <h3 class="text-xl md:text-2xl font-semibold text-[#4ECDC4] mb-4">กลยุทธ์สำคัญสำหรับองค์กร</h3>
-                        <p class="text-gray-700 mb-4">เพื่อรับมือกับความท้าทายและใช้ประโยชน์จาก AI อย่างเต็มศักยภาพ องค์กรควรพิจารณากลยุทธ์ต่อไปนี้:</p>
-                        <ol class="space-y-3 list-decimal list-inside text-gray-700 marker:text-[#4ECDC4] marker:font-bold">
-                            <li class="ml-2"><span class="font-semibold">พัฒนากลยุทธ์ความมั่นคง AI แบบหลายชั้น</span> ที่ครอบคลุมทั้งการป้องกันเชิงรุกและเชิงรับ</li>
-                            <li class="ml-2">ยึดหลัก <span class="font-semibold">"ปลอดภัยตั้งแต่การออกแบบ" (Secure by Design)</span> และนำ MLSecOps มาปรับใช้ตลอดวงจรชีวิต AI</li>
-                            <li class="ml-2">ลงทุนในเครื่องมือและแพลตฟอร์มป้องกันที่ขับเคลื่อนด้วย <span class="font-semibold">AI ขั้นสูง</span> เพื่อเพิ่มประสิทธิภาพการตรวจจับและตอบสนอง</li>
-                            <li class="ml-2">สร้างกรอบการกำกับดูแล <span class="font-semibold">AI ที่แข็งแกร่ง</span> กำหนดนโยบายการใช้งานที่ชัดเจน และปฏิบัติตามกฎระเบียบ</li>
-                            <li class="ml-2">จัดการช่องว่างบุคลากร AI ผ่าน <span class="font-semibold">การฝึกอบรม พัฒนาทักษะ และการสรรหาเชิงกลยุทธ์</span></li>
-                            <li class="ml-2">ส่งเสริม <span class="font-semibold">ความร่วมมือ</span> ทั้งภายในองค์กร (ระหว่างทีม AI, ความปลอดภัย, กฎหมาย) และกับภายนอก (ภาครัฐ, เอกชน, สถาบันวิจัย)</li>
-                        </ol>
-                    </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <footer class="text-center py-10 md:py-12 bg-gradient-to-r from-[#4ECDC4] to-[#1A535C] text-white rounded-xl shadow-2xl mt-10 md:mt-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">สรุป: สร้างอนาคต AI ที่ปลอดภัยร่วมกัน</h2>
-                <p class="text-lg md:text-xl mb-6 mx-auto max-w-3xl px-4">ภูมิทัศน์ความมั่นคงทางไซเบอร์ในปี 2025 และหลังจากนั้น จะถูกกำหนดนิยามใหม่โดยปัญญาประดิษฐ์ การรับมือกับความท้าทายและการใช้ประโยชน์จากโอกาสนี้ ต้องอาศัยการเฝ้าระวังอย่างต่อเนื่อง การปรับตัวอย่างรวดเร็ว และที่สำคัญที่สุดคือความร่วมมืออย่างลึกซึ้งระหว่างทุกภาคส่วน</p>
-                <p class="text-md md:text-lg font-semibold">การลงทุนในความปลอดภัยของ AI ไม่ใช่แค่การป้องกันภัยคุกคาม แต่คือการสร้างรากฐานสำหรับนวัตกรรม ความไว้วางใจ และอนาคตดิจิทัลที่ยั่งยืนสำหรับทุกคน</p>
-            </footer>
-        </main>
-    </div>
+        <section id="deepfake-scam" class="mb-12">
+            <div class="bg-white rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow duration-300">
+                <h2 class="text-2xl font-semibold text-[#0077B6] mb-4 flex items-center">
+                    <span class="text-3xl mr-3">⚠️</span> 4. ระวัง Deepfake & AI Scam
+                </h2>
+                <div class="text-center mb-6">
+                    <p class="text-5xl font-bold text-red-600">โลกปี 2025</p>
+                    <p class="text-2xl text-gray-700">มี AI หลอกเยอะมาก!</p>
+                </div>
+                <p class="mb-4 text-lg">เทคโนโลยี Deepfake และการหลอกลวงด้วย AI (AI Scam) มีความซับซ้อนและน่าเชื่อถือมากขึ้นเรื่อยๆ การตั้งสติ ตรวจสอบแหล่งที่มาอย่างรอบคอบ และไม่หลงเชื่ออะไรง่ายๆ คือเกราะป้องกันที่ดีที่สุด</p>
+                <h3 class="text-xl font-medium text-[#00B4D8] mb-3 text-center">ขั้นตอนการตรวจสอบเมื่อเจอเนื้อหาน่าสงสัย:</h3>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="flowchart-step p-3 rounded-md text-center w-full md:w-1/4">ตั้งคำถาม/สงสัย</div>
+                    <div class="flowchart-arrow hidden md:block">➡️</div>
+                    <div class="flowchart-arrow md:hidden self-center">⬇️</div>
+                    <div class="flowchart-step p-3 rounded-md text-center w-full md:w-1/4">ตรวจสอบแหล่งที่มา</div>
+                    <div class="flowchart-arrow hidden md:block">➡️</div>
+                     <div class="flowchart-arrow md:hidden self-center">⬇️</div>
+                    <div class="flowchart-step p-3 rounded-md text-center w-full md:w-1/4">ยืนยันกับผู้เกี่ยวข้อง (ถ้ามี)</div>
+                     <div class="flowchart-arrow hidden md:block">➡️</div>
+                     <div class="flowchart-arrow md:hidden self-center">⬇️</div>
+                    <div class="flowchart-step p-3 rounded-md text-center w-full md:w-1/4">แจ้ง IT/HR หากไม่มั่นใจ</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="knowledge-update" class="mb-12">
+            <div class="bg-white rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow duration-300">
+                <h2 class="text-2xl font-semibold text-[#0077B6] mb-4 flex items-center">
+                    <span class="text-3xl mr-3">📚</span> 5. อัปเดตความรู้ AI อยู่เสมอ
+                </h2>
+                <p class="mb-4 text-lg">เทคโนโลยี AI เปลี่ยนแปลงอย่างรวดเร็ว การเรียนรู้และอัปเดตความรู้อย่างสม่ำเสมอจะช่วยให้เราใช้ AI ได้อย่างปลอดภัยและมีประสิทธิภาพมากขึ้น บริษัทมีช่องทางสนับสนุนการเรียนรู้หลากหลายรูปแบบ</p>
+                <div class="chart-container mx-auto h-72 md:h-96">
+                    <canvas id="learningChannelsChart"></canvas>
+                </div>
+                <p class="text-center mt-4 text-sm text-gray-600">แผนภูมินี้แสดงช่องทางการเรียนรู้ AI และระดับความสำคัญ (ตัวอย่าง) ในการติดตาม</p>
+            </div>
+        </section>
+
+        <section id="summary-guidelines" class="mb-12">
+            <div class="bg-[#00B4D8] text-white rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow duration-300">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="text-3xl mr-3">✅</span> สรุปแนวทาง “AI ใช้ได้ แต่ต้องใช้ให้เป็น!”
+                </h2>
+                <ul class="space-y-3 text-lg">
+                    <li class="flex items-start"><span class="icon-bullet mt-1 text-xl">✔️</span>ตรวจสอบข้อมูลทุกครั้งที่ได้รับจาก AI</li>
+                    <li class="flex items-start"><span class="icon-bullet mt-1 text-xl">✔️</span>ไม่ป้อนข้อมูลลับของบริษัทหรือข้อมูลส่วนตัว</li>
+                    <li class="flex items-start"><span class="icon-bullet mt-1 text-xl">✔️</span>เคารพสิทธิ์และความเป็นส่วนตัวของผู้อื่นเสมอ</li>
+                    <li class="flex items-start"><span class="icon-bullet mt-1 text-xl">✔️</span>ระมัดระวังการหลอกลวงจาก AI และ Deepfake</li>
+                    <li class="flex items-start"><span class="icon-bullet mt-1 text-xl">✔️</span>เรียนรู้และพัฒนาความเข้าใจเกี่ยวกับ AI อย่างต่อเนื่อง</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="contact" class="text-center">
+            <div class="bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
+                <h2 class="text-2xl font-semibold text-[#0077B6] mb-3">📬 หากสงสัยหรือเจอกรณีน่าสงสัย</h2>
+                <p class="text-xl text-gray-700">ติดต่อฝ่าย <strong class="text-[#0077B6]">IT</strong> หรือ <strong class="text-[#0077B6]">HR</strong> ได้ทันที</p>
+                <div class="mt-4 space-x-4">
+                    <span class="text-3xl">🏢</span>
+                    <span class="text-3xl">💻</span>
+                    <span class="text-3xl">📞</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center p-6 mt-10 bg-[#0077B6] text-white">
+        <p>&copy; 2025 YDM THAILAND - AI Safety Awareness Initiative</p>
+         <p class="text-xs mt-1">This infographic was generated based on internal guidelines. No SVG or Mermaid JS was used.</p>
+    </footer>
 
     <script>
-        function wrapLabel(str, maxWidth) {
-            if (typeof str !== 'string' || str.length <= maxWidth) {
-                return str;
+        const CHART_PRIMARY_COLOR = '#00B4D8'; // Medium Blue
+        const CHART_SECONDARY_COLOR = '#0077B6'; // Dark Blue
+        const CHART_ACCENT_COLOR = '#90E0EF'; // Light Blue
+        const CHART_TEXT_COLOR = '#374151'; // Tailwind gray-700
+
+        Chart.defaults.font.family = "'Kanit', sans-serif";
+        Chart.defaults.color = CHART_TEXT_COLOR;
+
+        function processLabel(label, maxLength = 16) {
+            if (label.length <= maxLength) {
+                return label;
             }
-            const words = str.split(' ');
-            let currentLine = '';
+            const words = label.split(' ');
             const lines = [];
+            let currentLine = '';
             for (const word of words) {
-                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                if ((currentLine + word).length > maxLength && currentLine !== '') {
                     lines.push(currentLine.trim());
                     currentLine = '';
                 }
                 currentLine += word + ' ';
             }
-            if (currentLine.trim().length > 0) {
+            if (currentLine.trim() !== '') {
                 lines.push(currentLine.trim());
             }
-            return lines.length > 0 ? lines : [str];
+            return lines.length > 0 ? lines : [label]; // Ensure it returns at least the original label if no split
         }
-
-        const chartTooltipTitleCallback = function(tooltipItems) {
+        
+        const commonTooltipTitleCallback = function(tooltipItems) {
             const item = tooltipItems[0];
-            if (!item || !item.chart || !item.chart.data || !item.chart.data.labels) return '';
             let label = item.chart.data.labels[item.dataIndex];
             if (Array.isArray(label)) {
-                return label.join(' ');
+              return label.join(' ');
             } else {
-                return label;
+              return label;
             }
         };
-        
-        const defaultChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { 
-                    position: 'bottom',
-                    labels: { font: { family: 'Kanit' } } 
-                },
-                tooltip: { 
-                    callbacks: { title: chartTooltipTitleCallback },
-                    titleFont: { family: 'Kanit' },
-                    bodyFont: { family: 'Kanit' }
-                }
+
+        // 1. AI Nature Chart (Donut)
+        const aiNatureCtx = document.getElementById('aiNatureChart').getContext('2d');
+        new Chart(aiNatureCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['AI เป็นเครื่องมือช่วยคิด', 'ต้องตรวจสอบและวิจารณญาณโดยมนุษย์'],
+                datasets: [{
+                    label: 'ธรรมชาติของ AI',
+                    data: [60, 40], // Illustrative data
+                    backgroundColor: [CHART_PRIMARY_COLOR, CHART_ACCENT_COLOR],
+                    borderColor: ['#FFFFFF'],
+                    borderWidth: 2
+                }]
             },
-            scales: {
-                x: { ticks: { font: { family: 'Kanit' } }, grid: { display: false } },
-                y: { ticks: { font: { family: 'Kanit' } }, grid: { color: 'rgba(0,0,0,0.05)'} }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                         labels: {
+                            font: { size: 12 }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'สัดส่วนการพึ่งพา AI และการใช้วิจารณญาณ',
+                        font: { size: 14, weight: 'bold' },
+                        padding: { top:10, bottom:10}
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: commonTooltipTitleCallback
+                        }
+                    }
+                }
             }
-        };
+        });
 
-        const malwareCtx = document.getElementById('malwareTrendChart')?.getContext('2d');
-        if (malwareCtx) {
-            new Chart(malwareCtx, {
-                type: 'line',
-                data: {
-                    labels: ['2022', '2023', '2024', '2025 (คาดการณ์)'].map(label => wrapLabel(label, 16)),
-                    datasets: [{
-                        label: 'ความซับซ้อนของมัลแวร์ AI',
-                        data: [60, 75, 85, 95],
-                        borderColor: '#FF6B6B',
-                        backgroundColor: 'rgba(255, 107, 107, 0.1)',
-                        fill: true,
-                        tension: 0.3,
-                        pointBackgroundColor: '#FF6B6B',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: '#FF6B6B'
-                    }]
+        // 2. Confidential Data Chart (Bar)
+        const confidentialDataCtx = document.getElementById('confidentialDataChart').getContext('2d');
+        new Chart(confidentialDataCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    processLabel('ข้อมูลลูกค้า'), 
+                    processLabel('งบการเงินบริษัท'), 
+                    processLabel('แผนการตลาดลับ'), 
+                    processLabel('Password ส่วนตัว')
+                ],
+                datasets: [{
+                    label: 'ระดับความเสี่ยง (ตัวอย่าง)',
+                    data: [90, 95, 85, 98], // Illustrative risk levels
+                    backgroundColor: [CHART_PRIMARY_COLOR, CHART_SECONDARY_COLOR, CHART_PRIMARY_COLOR, CHART_SECONDARY_COLOR],
+                    borderColor: CHART_SECONDARY_COLOR,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y', // Horizontal Bar Chart
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: 'ระดับความเสี่ยง (0-100)'}
+                    },
+                    y: {
+                        ticks: { font: { size: 11 }}
+                    }
                 },
-                options: { ...defaultChartOptions, scales: {...defaultChartOptions.scales, y: {...defaultChartOptions.scales.y, beginAtZero: true, title: { display: true, text: 'ดัชนีความซับซ้อน (0-100)', font: { family: 'Kanit'}}}} } }
-            });
-        }
-
-        const phishingCtx = document.getElementById('phishingSuccessChart')?.getContext('2d');
-        if (phishingCtx) {
-            new Chart(phishingCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: [wrapLabel('ฟิชชิ่งสร้างโดย AI (54%)', 20), wrapLabel('ฟิชชิ่งสร้างโดยมนุษย์ (12%)', 20), wrapLabel('ไม่สำเร็จ/อื่นๆ (34%)', 20)],
-                    datasets: [{
-                        label: 'อัตราความสำเร็จของฟิชชิ่ง',
-                        data: [54, 12, 34],
-                        backgroundColor: ['#FF6B6B', '#FFE66D', '#4ECDC4'],
-                        borderColor: ['#FFFFFF', '#FFFFFF', '#FFFFFF'],
-                        borderWidth: 2,
-                        hoverOffset: 4
-                    }]
-                },
-                options: { ...defaultChartOptions, plugins: {...defaultChartOptions.plugins, legend: {...defaultChartOptions.plugins.legend, position: 'right'}}}
-            });
-        }
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'ประเภทข้อมูลลับและระดับความเสี่ยง (ตัวอย่าง)',
+                        font: { size: 14, weight: 'bold' },
+                        padding: { top:10, bottom:10}
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: commonTooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
         
-        const responseCtx = document.getElementById('responseTimesChart')?.getContext('2d');
-        if (responseCtx) {
-            new Chart(responseCtx, {
-                type: 'bar',
-                data: {
-                    labels: [wrapLabel('ก่อนใช้ AI/SOAR', 16), wrapLabel('หลังใช้ AI/SOAR', 16)],
-                    datasets: [{
-                        label: 'เวลาตอบสนองเฉลี่ย (ชั่วโมง)',
-                        data: [48, 2.5], 
-                        backgroundColor: ['rgba(255, 107, 107, 0.7)', 'rgba(78, 205, 196, 0.7)'],
-                        borderColor: ['#FF6B6B', '#4ECDC4'],
-                        borderWidth: 1,
-                        borderRadius: 4,
-                    }]
+        // 5. Learning Channels Chart (Bar)
+        const learningChannelsCtx = document.getElementById('learningChannelsChart').getContext('2d');
+        new Chart(learningChannelsCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    processLabel('เข้าร่วมเวิร์กช็อปบริษัท'), 
+                    processLabel('อ่านอัปเดตจากทีม IT/Policy'), 
+                    processLabel('แชร์ความรู้กับเพื่อนร่วมงาน')
+                ],
+                datasets: [{
+                    label: 'ระดับความสำคัญในการติดตาม (ตัวอย่าง)',
+                    data: [85, 90, 75], // Illustrative importance levels
+                    backgroundColor: [CHART_PRIMARY_COLOR, CHART_SECONDARY_COLOR, CHART_ACCENT_COLOR],
+                    borderColor: CHART_SECONDARY_COLOR,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: 'ระดับความสำคัญ (0-100)'}
+                    },
+                     x: {
+                        ticks: { font: { size: 11 }}
+                    }
                 },
-                options: { ...defaultChartOptions, scales: {...defaultChartOptions.scales, y: {...defaultChartOptions.scales.y, beginAtZero: true, title: { display: true, text: 'ชั่วโมง', font: { family: 'Kanit'}}}} }, plugins: {...defaultChartOptions.plugins, legend: {display: false}} }
-            });
-        }
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'ช่องทางการอัปเดตความรู้ AI (ตัวอย่าง)',
+                        font: { size: 14, weight: 'bold' },
+                        padding: { top:10, bottom:10}
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: commonTooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+
     </script>
 </body>
 </html>
