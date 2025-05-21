@@ -10,7 +10,7 @@
     <!-- 
     Narrative Plan:
     1.  Header: Main Alert Title.
-    2.  Section 1 (ใช้ AI อย่างมีวิจารณญาณ): Introduction to cautious AI use. Donut chart for AI's nature.
+    2.  Section 1 (ใช้ AI อย่างมีวิจารณญาณ): Introduction to cautious AI use.
     3.  Section 2 (ห้ามป้อนข้อมูลลับ): Data secrecy. Bar chart for types of confidential data and their illustrative risk.
     4.  Section 3 (ปกป้องตัวตนและสิทธิ์ของผู้อื่น): Ethical AI use. List of prohibited actions with icons.
     5.  Section 4 (ระวัง Deepfake & AI Scam): AI threats. Big number for scam prevalence + HTML/CSS flowchart for verification.
@@ -20,7 +20,7 @@
     9.  Footer: Confirmation.
 
     Visualization Choices:
-    -   Section 1 Data: AI's nature (expert vs. tool). Goal: Inform. Visualization: Donut Chart (Chart.js). Justification: Shows proportion of AI's role needing human judgment. No SVG.
+    -   Section 1 Data: AI's nature (expert vs. tool). Goal: Inform. Visualization: Text only. No SVG.
     -   Section 2 Data: Types of confidential data (ลูกค้า, งบการเงิน, แผนการตลาด, Password). Goal: Compare. Visualization: Bar Chart (Chart.js) - Illustrative Risk Levels. Justification: Compares distinct categories of sensitive data. Label wrapping applied. No SVG.
     -   Section 3 Data: Prohibited actions (ละเมิดสิทธิ์, Deepfake, etc.). Goal: Organize. Visualization: Styled HTML List with Unicode icons. Justification: Clear, direct for rules. No SVG.
     -   Section 4 Data: AI scam prevalence & verification. Goal: Inform/Organize. Visualization: Large Text (HTML/CSS) + HTML/CSS Flowchart. Justification: Impact and process illustration. No SVG, No Mermaid JS.
@@ -84,11 +84,7 @@
                     <span class="text-3xl mr-3">🧠</span> 1. ใช้ AI อย่างมีวิจารณญาณ
                 </h2>
                 <p class="mb-4 text-lg">AI เป็นเครื่องมือที่มีประสิทธิภาพ แต่ไม่ใช่ผู้เชี่ยวชาญที่สามารถตัดสินใจแทนเราได้ทั้งหมด การตรวจสอบความถูกต้องของข้อมูลที่ได้รับจาก AI และการไม่เชื่อถือ AI 100% โดยขาดการไตร่ตรองเป็นสิ่งสำคัญอย่างยิ่ง เพื่อให้การนำ AI มาใช้เกิดประโยชน์สูงสุดและลดความเสี่ยงที่อาจเกิดขึ้น</p>
-                <div class="chart-container mx-auto h-64 md:h-80">
-                    <canvas id="aiNatureChart"></canvas>
                 </div>
-                <p class="text-center mt-4 text-sm text-gray-600">แผนภูมินี้แสดงสัดส่วนโดยประมาณของข้อมูลจาก AI ที่ควรผ่านการตรวจสอบอย่างละเอียดก่อนนำไปใช้</p>
-            </div>
         </section>
 
         <section id="data-privacy" class="mb-12">
@@ -252,44 +248,44 @@
             }
         };
 
-        // 1. AI Nature Chart (Donut)
-        const aiNatureCtx = document.getElementById('aiNatureChart').getContext('2d');
-        new Chart(aiNatureCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['AI เป็นเครื่องมือช่วยคิด', 'ต้องตรวจสอบและวิจารณญาณโดยมนุษย์'],
-                datasets: [{
-                    label: 'ธรรมชาติของ AI',
-                    data: [60, 40], // Illustrative data
-                    backgroundColor: [CHART_PRIMARY_COLOR, CHART_ACCENT_COLOR],
-                    borderColor: ['#FFFFFF'],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                         labels: {
-                            font: { size: 12 }
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'สัดส่วนการพึ่งพา AI และการใช้วิจารณญาณ',
-                        font: { size: 14, weight: 'bold' },
-                        padding: { top:10, bottom:10}
-                    },
-                    tooltip: {
-                        callbacks: {
-                            title: commonTooltipTitleCallback
-                        }
-                    }
-                }
-            }
-        });
+        // Removed AI Nature Chart (Donut) as per user request
+        // const aiNatureCtx = document.getElementById('aiNatureChart').getContext('2d');
+        // new Chart(aiNatureCtx, {
+        //     type: 'doughnut',
+        //     data: {
+        //         labels: ['AI เป็นเครื่องมือช่วยคิด', 'ต้องตรวจสอบและวิจารณญาณโดยมนุษย์'],
+        //         datasets: [{
+        //             label: 'ธรรมชาติของ AI',
+        //             data: [60, 40], // Illustrative data
+        //             backgroundColor: [CHART_PRIMARY_COLOR, CHART_ACCENT_COLOR],
+        //             borderColor: ['#FFFFFF'],
+        //             borderWidth: 2
+        //         }]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         maintainAspectRatio: false,
+        //         plugins: {
+        //             legend: {
+        //                 position: 'bottom',
+        //                  labels: {
+        //                     font: { size: 12 }
+        //                 }
+        //             },
+        //             title: {
+        //                 display: true,
+        //                 text: 'สัดส่วนการพึ่งพา AI และการใช้วิจารณญาณ',
+        //                 font: { size: 14, weight: 'bold' },
+        //                 padding: { top:10, bottom:10}
+        //             },
+        //             tooltip: {
+        //                 callbacks: {
+        //                     title: commonTooltipTitleCallback
+        //                 }
+        //             }
+        //         }
+        //     }
+        // });
 
         // 2. Confidential Data Chart (Bar)
         const confidentialDataCtx = document.getElementById('confidentialDataChart').getContext('2d');
