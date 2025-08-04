@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรแกรมจำลองการโจมตีด้าน Cybersecurity</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <div id="app" class="bg-white rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center">
+        <h1 class="text-3xl font-bold mb-4 text-gray-800">โปรแกรมจำลองการโจมตีด้าน Cybersecurity</h1>
+        <p class="text-gray-600 mb-8">เรียนรู้ที่จะระบุภัยคุกคามทางไซเบอร์ที่พบบ่อยและปกป้องตัวเองจากมัน!</p>
+
+        <!-- สถานะปัจจุบันและผลลัพธ์ -->
+        <div id="status-display" class="mb-6 p-4 bg-blue-50 rounded-xl border-l-4 border-blue-500 hidden">
+            <p id="status-text" class="text-blue-700 font-medium"></p>
+        </div>
+
+        <!-- พื้นที่สำหรับแสดงสถานการณ์ -->
+        <div id="scenario-container" class="space-y-6">
+            <!-- สถานการณ์จะถูกสร้างขึ้นที่นี่ด้วย JavaScript -->
+        </div>
+
+        <!-- ปุ่มเริ่มเกม -->
+        <button id="start-button" class="mt-8 px-6 py-3 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">
+            เริ่มการจำลอง
+        </button>
+
+        <!-- ผลสรุปเมื่อจบเกม -->
+        <div id="end-screen" class="mt-8 hidden">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">จบการจำลอง!</h2>
+            <p class="text-lg text-gray-700 mb-4">คะแนนของคุณ: <span id="final-score" class="font-bold text-blue-600">0</span>/10</p>
+            <p id="final-message" class="text-gray-600 mb-6"></p>
+            <button onclick="startGame()" class="px-6 py-3 bg-green-600 text-white font-bold rounded-full shadow-lg hover:bg-green-700 transition-colors duration-300 transform hover:scale-105">
+                เริ่มใหม่
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Array ของสถานการณ์การโจมตี
+        const scenarios = [
+            {
+                prompt: "คุณได้รับอีเมลจาก 'ฝ่าย HR' พร้อมหัวข้อ 'การปรับปรุงนโยบายค่าตอบแทนใหม่' อีเมลมีปุ่ม 'คลิกที่นี่เพื่อดูรายละเอียด'.",
+                options: [
+                    { text: "คลิกปุ่มเพื่ออ่านนโยบาย", action: "click" },
+                    { text: "ลบอีเมลทิ้งและแจ้งฝ่าย IT", action: "report" }
+                ],
+                correctAction: "report",
+                explanationCorrect: "ถูกต้อง! การแจ้งฝ่าย IT และลบอีเมลทิ้งเป็นวิธีที่ปลอดภัยที่สุด อีเมลฟิชชิ่งมักใช้หัวข้อที่ดึงดูดใจเพื่อหลอกล่อให้คุณคลิก",
+                explanationIncorrect: "ไม่ถูกต้อง. อีเมลนี้อาจเป็นอีเมลฟิชชิ่งที่สร้างขึ้นเพื่อขโมยข้อมูลของคุณ ทางที่ดีที่สุดคืออย่าคลิกที่ลิงก์ที่ไม่น่าเชื่อถือและแจ้งฝ่าย IT"
+            },
+            {
+                prompt: "ขณะที่คุณกำลังดูเว็บไซต์ข่าว คุณเห็นป๊อปอัปแจ้งเตือนว่า 'โทรศัพท์ของคุณติดไวรัส! ดาวน์โหลดแอปนี้เพื่อแก้ไขทันที'.",
+                options: [
+                    { text: "คลิกเพื่อดาวน์โหลดแอปตามคำแนะนำ", action: "download" },
+                    { text: "ปิดหน้าต่างป๊อปอัปและออกจากเว็บไซต์", action: "close" }
+                ],
+                correctAction: "close",
+                explanationCorrect: "ถูกต้อง! คำเตือนปลอมเหล่านี้มักใช้เพื่อหลอกให้คุณดาวน์โหลดซอฟต์แวร์ที่เป็นอันตราย (Malware) การปิดหน้าต่างคือการกระทำที่ถูกต้อง",
+                explanationIncorrect: "ไม่ถูกต้อง. ป๊อปอัปนี้คือการหลอกลวง (Scam) และแอปที่คุณกำลังจะดาวน์โหลดอาจเป็นมัลแวร์ที่สร้างความเสียหายให้กับอุปกรณ์ของคุณ"
+            },
+            {
+                prompt: "คุณได้รับข้อความจากเพื่อนร่วมงานที่ดูเหมือนจะเร่งด่วน โดยขอให้คุณล็อกอินเข้าสู่ระบบผ่านลิงก์ที่แนบมาเพื่อแก้ไขปัญหาด่วน. หน้าล็อกอินดูเหมือนจริงทุกประการ.",
+                options: [
+                    { text: "ป้อนชื่อผู้ใช้และรหัสผ่านของคุณในหน้าล็อกอิน", action: "login" },
+                    { text: "ติดต่อเพื่อนร่วมงานโดยตรงเพื่อยืนยันคำขอ", action: "verify" }
+                ],
+                correctAction: "verify",
+                explanationCorrect: "ถูกต้อง! การติดต่อเพื่อนร่วมงานโดยตรงเป็นวิธีที่ดีที่สุดเพื่อตรวจสอบว่าเป็นคำขอที่ถูกต้องหรือไม่ หน้าล็อกอินปลอมมักถูกสร้างขึ้นเพื่อขโมยรหัสผ่านของคุณ",
+                explanationIncorrect: "ไม่ถูกต้อง. หน้าล็อกอินที่คุณเห็นอาจเป็นของปลอมที่ถูกสร้างขึ้นเพื่อขโมยข้อมูลล็อกอินของคุณ ทางที่ดีที่สุดคือตรวจสอบกับเพื่อนร่วมงานก่อนเสมอ"
+            },
+            {
+                prompt: "คุณได้รับ SMS จากธนาคารแจ้งว่า 'บัญชีของคุณถูกล็อก! คลิกที่ลิงก์นี้เพื่อยืนยันตัวตนของคุณและปลดล็อก'.",
+                options: [
+                    { text: "คลิกที่ลิงก์และทำตามคำแนะนำ", action: "click-sms" },
+                    { text: "โทรติดต่อธนาคารจากเบอร์โทรศัพท์ทางการเพื่อตรวจสอบ", action: "call-bank" }
+                ],
+                correctAction: "call-bank",
+                explanationCorrect: "ถูกต้อง! ธนาคารมักจะไม่ส่งลิงก์เพื่อขอข้อมูลส่วนตัวผ่าน SMS การโทรหาธนาคารโดยตรงเป็นวิธีที่ปลอดภัยที่สุด",
+                explanationIncorrect: "ไม่ถูกต้อง. ข้อความลักษณะนี้คือ Smishing (Phishing ผ่าน SMS) ซึ่งมุ่งเป้าจะขโมยข้อมูลของคุณ"
+            },
+            {
+                prompt: "ในระหว่างการประชุม คุณเห็น QR Code บนหน้าจอที่ระบุว่า 'สแกนเพื่อดาวน์โหลดข้อมูลการนำเสนอ'.",
+                options: [
+                    { text: "สแกน QR Code ด้วยโทรศัพท์ของคุณ", action: "scan-qr" },
+                    { text: "ขอให้ผู้จัดประชุมส่งไฟล์ให้ทางอีเมล", action: "request-email" }
+                ],
+                correctAction: "request-email",
+                explanationCorrect: "ถูกต้อง! QR Code ที่ไม่ทราบที่มาอาจนำคุณไปยังเว็บไซต์ที่เป็นอันตรายหรือดาวน์โหลดมัลแวร์ การขอไฟล์โดยตรงเป็นวิธีที่ปลอดภัยกว่า",
+                explanationIncorrect: "ไม่ถูกต้อง. QR Code อาจเป็นช่องทางในการหลอกลวง (Quishing) และนำไปสู่เว็บไซต์ที่มีมัลแวร์แฝงอยู่"
+            },
+            {
+                prompt: "คุณได้รับอีเมลจาก 'CEO' ของบริษัทที่ขอให้คุณโอนเงินจำนวนหนึ่งไปยังบัญชีผู้ขายเพื่อชำระหนี้เร่งด่วน.",
+                options: [
+                    { text: "โอนเงินทันทีตามคำขอเพื่อแสดงความรวดเร็ว", action: "transfer" },
+                    { text: "ตรวจสอบกับ CEO ผ่านช่องทางอื่นที่ไม่ใช่อีเมล (เช่น โทรศัพท์)", action: "verify-ceo" }
+                ],
+                correctAction: "verify-ceo",
+                explanationCorrect: "ถูกต้อง! การหลอกลวงแบบ CEO Fraud มักใช้ความเร่งด่วนเพื่อหลอกให้คุณโอนเงิน การยืนยันตัวตนผ่านช่องทางอื่นเป็นสิ่งสำคัญที่สุด",
+                explanationIncorrect: "ไม่ถูกต้อง. อีเมลอาจถูกปลอมแปลงขึ้นมาเพื่อหลอกลวงให้คุณโอนเงิน การทำเช่นนี้อาจทำให้บริษัทเสียหายอย่างหนัก"
+            },
+            {
+                prompt: "คุณกำลังทำงานที่ร้านกาแฟและต้องการเชื่อมต่อ Wi-Fi คุณเห็นเครือข่ายชื่อ 'Free Public Wi-Fi'.",
+                options: [
+                    { text: "เชื่อมต่อกับ Wi-Fi นั้นทันที", action: "connect-wifi" },
+                    { text: "ใช้เครือข่ายอินเทอร์เน็ตบนมือถือ (Cellular Data) แทน", action: "use-cellular" }
+                ],
+                correctAction: "use-cellular",
+                explanationCorrect: "ถูกต้อง! Wi-Fi สาธารณะที่ไม่มีการป้องกันอาจเป็นช่องทางให้แฮกเกอร์ดักจับข้อมูลของคุณได้ การใช้เครือข่ายอินเทอร์เน็ตบนมือถือจะปลอดภัยกว่ามาก",
+                explanationIncorrect: "ไม่ถูกต้อง. Wi-Fi สาธารณะเป็นจุดอ่อนสำคัญที่ผู้ไม่หวังดีใช้ในการขโมยข้อมูลส่วนตัวของคุณ"
+            },
+            {
+                prompt: "คุณพบ Flash Drive ที่ไม่มีชื่อตกอยู่บนโต๊ะทำงานของคุณ คุณอยากรู้ว่ามีข้อมูลอะไรอยู่ข้างใน.",
+                options: [
+                    { text: "นำ Flash Drive ไปเสียบเข้ากับคอมพิวเตอร์ของคุณ", action: "plug-usb" },
+                    { text: "แจ้งฝ่าย IT เพื่อให้พวกเขาจัดการ Flash Drive ดังกล่าว", action: "report-usb" }
+                ],
+                correctAction: "report-usb",
+                explanationCorrect: "ถูกต้อง! Flash Drive ที่ไม่ทราบที่มาอาจบรรจุไฟล์ที่เป็นอันตราย เช่น มัลแวร์ หรือไวรัส การแจ้งฝ่าย IT เป็นวิธีที่ปลอดภัยที่สุด",
+                explanationIncorrect: "ไม่ถูกต้อง. การเสียบ Flash Drive ที่ไม่ทราบที่มาเข้ากับคอมพิวเตอร์ของคุณมีความเสี่ยงสูงที่จะติดมัลแวร์"
+            },
+            {
+                prompt: "คุณได้รับโทรศัพท์จากบุคคลที่อ้างว่าเป็น 'ฝ่ายสนับสนุนด้านเทคนิคของบริษัท' และขอรหัสผ่านของคุณเพื่อแก้ไขปัญหา. เขาใช้คำพูดที่ดูเป็นทางการมาก.",
+                options: [
+                    { text: "ให้รหัสผ่านของคุณแก่เขา", action: "give-password" },
+                    { text: "แจ้งว่าคุณจะโทรกลับไปหาฝ่าย IT โดยตรงเพื่อยืนยัน", action: "call-back-it" }
+                ],
+                correctAction: "call-back-it",
+                explanationCorrect: "ถูกต้อง! ไม่มีเจ้าหน้าที่คนใดจะขอรหัสผ่านของคุณ การแจ้งว่าคุณจะโทรกลับเพื่อยืนยันเป็นวิธีที่ปลอดภัยในการปฏิเสธคำขอที่น่าสงสัย",
+                explanationIncorrect: "ไม่ถูกต้อง. นี่คือการโจมตีทางสังคม (Social Engineering) ที่พยายามหลอกล่อให้คุณเปิดเผยข้อมูลสำคัญ"
+            },
+            {
+                prompt: "คุณกำลังเข้าสู่ระบบเว็บพอร์ทัลของบริษัทจากเว็บไซต์ที่ดูเหมือนปกติทุกประการ แต่สังเกตว่า URL มีการสะกดผิดไปเล็กน้อย (เช่น company.coom แทนที่จะเป็น company.com).",
+                options: [
+                    { text: "ป้อนชื่อผู้ใช้และรหัสผ่านของคุณ", action: "login-typo" },
+                    { text: "ปิดหน้าต่างทันทีและเปิดเบราว์เซอร์ใหม่เพื่อพิมพ์ URL ที่ถูกต้อง", action: "re-type-url" }
+                ],
+                correctAction: "re-type-url",
+                explanationCorrect: "ถูกต้อง! การสะกด URL ที่ผิดปกติเป็นสัญญาณเตือนที่ชัดเจนของ Phishing การปิดหน้าต่างและพิมพ์ URL ที่ถูกต้องด้วยตนเองจะช่วยป้องกันการถูกหลอกลวง",
+                explanationIncorrect: "ไม่ถูกต้อง. เว็บไซต์นี้คือเว็บไซต์ Phishing ที่ถูกสร้างขึ้นเพื่อขโมยข้อมูลล็อกอินของคุณ"
+            }
+        ];
+
+        let currentScenarioIndex = 0;
+        let score = 0;
+        let isProcessing = false; // ป้องกันการคลิกซ้ำขณะประมวลผล
+
+        const app = document.getElementById('app');
+        const startButton = document.getElementById('start-button');
+        const scenarioContainer = document.getElementById('scenario-container');
+        const statusDisplay = document.getElementById('status-display');
+        const statusText = document.getElementById('status-text');
+        const endScreen = document.getElementById('end-screen');
+        const finalScoreText = document.getElementById('final-score');
+        const finalMessageText = document.getElementById('final-message');
+
+        // เริ่มเกม
+        function startGame() {
+            currentScenarioIndex = 0;
+            score = 0;
+            app.classList.remove('p-8');
+            app.classList.add('p-6');
+            startButton.classList.add('hidden');
+            endScreen.classList.add('hidden');
+            statusDisplay.classList.add('hidden');
+            finalScoreText.textContent = 0;
+            displayScenario();
+        }
+
+        // แสดงสถานการณ์ปัจจุบัน
+        function displayScenario() {
+            if (currentScenarioIndex >= scenarios.length) {
+                endGame();
+                return;
+            }
+
+            isProcessing = false;
+            const scenario = scenarios[currentScenarioIndex];
+
+            // ล้างเนื้อหาเดิม
+            scenarioContainer.innerHTML = '';
+            
+            // สร้าง prompt
+            const promptElement = document.createElement('p');
+            promptElement.className = 'text-xl text-gray-800 font-semibold mb-4';
+            promptElement.textContent = `สถานการณ์ที่ ${currentScenarioIndex + 1}: ${scenario.prompt}`;
+            scenarioContainer.appendChild(promptElement);
+
+            // สร้างปุ่มตัวเลือก
+            scenario.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'w-full py-4 px-4 bg-gray-200 text-gray-700 font-medium rounded-lg shadow-md hover:bg-gray-300 transition-colors duration-200 transform hover:scale-105';
+                button.textContent = option.text;
+                button.onclick = () => checkAnswer(option.action);
+                scenarioContainer.appendChild(button);
+            });
+            scenarioContainer.classList.remove('hidden');
+        }
+
+        // ตรวจสอบคำตอบของผู้ใช้
+        function checkAnswer(userAction) {
+            if (isProcessing) return;
+            isProcessing = true;
+
+            const scenario = scenarios[currentScenarioIndex];
+            const isCorrect = userAction === scenario.correctAction;
+
+            if (isCorrect) {
+                score++;
+                statusText.textContent = `ถูกต้อง! ${scenario.explanationCorrect}`;
+                statusDisplay.classList.remove('bg-red-50', 'border-red-500', 'text-red-700');
+                statusDisplay.classList.add('bg-green-50', 'border-green-500', 'text-green-700');
+            } else {
+                statusText.textContent = `ผิดพลาด. ${scenario.explanationIncorrect}`;
+                statusDisplay.classList.remove('bg-green-50', 'border-green-500', 'text-green-700');
+                statusDisplay.classList.add('bg-red-50', 'border-red-500', 'text-red-700');
+            }
+
+            statusDisplay.classList.remove('hidden');
+            scenarioContainer.classList.add('hidden');
+
+            // ไปยังสถานการณ์ถัดไปหลังจากหน่วงเวลา
+            setTimeout(() => {
+                currentScenarioIndex++;
+                displayScenario();
+            }, 3000);
+        }
+
+        // จบเกม
+        function endGame() {
+            app.classList.remove('p-6');
+            app.classList.add('p-8');
+            scenarioContainer.classList.add('hidden');
+            statusDisplay.classList.add('hidden');
+            endScreen.classList.remove('hidden');
+            finalScoreText.textContent = score;
+
+            if (score === scenarios.length) {
+                finalMessageText.textContent = "ยอดเยี่ยมมาก! คุณได้ผ่านการทดสอบนี้ด้วยคะแนนเต็ม แสดงว่าคุณมีความเข้าใจด้านความปลอดภัยเป็นอย่างดี";
+                finalMessageText.classList.remove('text-red-600', 'text-blue-600');
+                finalMessageText.classList.add('text-green-600');
+            } else if (score >= 7) {
+                finalMessageText.textContent = "ดีมากครับ! คุณสามารถระบุภัยคุกคามส่วนใหญ่ได้ แต่ยังมีบางจุดที่ต้องระวัง ฝึกฝนต่อไปนะครับ!";
+                finalMessageText.classList.remove('text-red-600', 'text-green-600');
+                finalMessageText.classList.add('text-blue-600');
+            } else {
+                finalMessageText.textContent = "อย่าเพิ่งท้อนะครับ! การเรียนรู้เรื่อง Cybersecurity ต้องใช้เวลา ลองเริ่มการจำลองใหม่อีกครั้งเพื่อทบทวนบทเรียน";
+                finalMessageText.classList.remove('text-green-600', 'text-blue-600');
+                finalMessageText.classList.add('text-red-600');
+            }
+        }
+        
+        // ผูกปุ่มเริ่มต้นกับฟังก์ชัน startGame
+        startButton.addEventListener('click', startGame);
+
+    </script>
+</body>
+</html>
