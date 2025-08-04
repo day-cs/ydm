@@ -13,6 +13,11 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                     },
+                    colors: {
+                        primary: '#1E40AF', // Dark blue
+                        secondary: '#DBEAFE', // Light blue
+                        accent: '#F97316', // Orange
+                    }
                 }
             }
         }
@@ -21,17 +26,35 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        .correct-bg {
+            background-color: #D1FAE5; /* Green 100 */
+        }
+        .correct-border {
+            border-color: #34D399; /* Green 400 */
+        }
+        .correct-text {
+            color: #065F46; /* Green 800 */
+        }
+        .incorrect-bg {
+            background-color: #FEE2E2; /* Red 100 */
+        }
+        .incorrect-border {
+            border-color: #F87171; /* Red 400 */
+        }
+        .incorrect-text {
+            color: #991B1B; /* Red 800 */
+        }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
 
-    <div id="app" class="bg-white rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center">
-        <h1 class="text-3xl font-bold mb-4 text-gray-800">โปรแกรมจำลองการโจมตีด้าน Cybersecurity</h1>
-        <p class="text-gray-600 mb-8">เรียนรู้ที่จะระบุภัยคุกคามทางไซเบอร์ที่พบบ่อยและปกป้องตัวเองจากมัน!</p>
+    <div id="app" class="bg-white rounded-2xl shadow-2xl p-10 max-w-2xl w-full text-center transform transition-all duration-300 ease-in-out">
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-800">โปรแกรมจำลองการโจมตีด้าน Cybersecurity</h1>
+        <p class="text-gray-600 mb-8 text-lg">เรียนรู้ที่จะระบุภัยคุกคามทางไซเบอร์ที่พบบ่อยและปกป้องตัวเองจากมัน!</p>
 
         <!-- สถานะปัจจุบันและผลลัพธ์ -->
-        <div id="status-display" class="mb-6 p-4 bg-blue-50 rounded-xl border-l-4 border-blue-500 hidden">
-            <p id="status-text" class="text-blue-700 font-medium"></p>
+        <div id="status-display" class="mb-6 p-4 rounded-xl border-l-4 hidden transition-all duration-300">
+            <p id="status-text" class="font-medium text-lg"></p>
         </div>
 
         <!-- พื้นที่สำหรับแสดงสถานการณ์ -->
@@ -40,16 +63,16 @@
         </div>
 
         <!-- ปุ่มเริ่มเกม -->
-        <button id="start-button" class="mt-8 px-6 py-3 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">
+        <button id="start-button" class="mt-8 px-8 py-4 bg-primary text-white font-bold text-xl rounded-full shadow-lg hover:bg-blue-800 transition-colors duration-300 transform hover:scale-105">
             เริ่มการจำลอง
         </button>
 
         <!-- ผลสรุปเมื่อจบเกม -->
         <div id="end-screen" class="mt-8 hidden">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">จบการจำลอง!</h2>
-            <p class="text-lg text-gray-700 mb-4">คะแนนของคุณ: <span id="final-score" class="font-bold text-blue-600">0</span>/10</p>
-            <p id="final-message" class="text-gray-600 mb-6"></p>
-            <button onclick="startGame()" class="px-6 py-3 bg-green-600 text-white font-bold rounded-full shadow-lg hover:bg-green-700 transition-colors duration-300 transform hover:scale-105">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">จบการจำลอง!</h2>
+            <p class="text-xl text-gray-700 mb-2">คะแนนของคุณ: <span id="final-score" class="font-bold text-primary text-2xl">0</span>/10</p>
+            <p id="final-message" class="text-xl font-semibold mb-6"></p>
+            <button onclick="startGame()" class="px-8 py-4 bg-green-600 text-white font-bold text-xl rounded-full shadow-lg hover:bg-green-700 transition-colors duration-300 transform hover:scale-105">
                 เริ่มใหม่
             </button>
         </div>
@@ -59,14 +82,14 @@
         // Array ของสถานการณ์การโจมตี
         const scenarios = [
             {
-                prompt: "คุณได้รับอีเมลจาก 'ฝ่าย HR' พร้อมหัวข้อ 'การปรับปรุงนโยบายค่าตอบแทนใหม่' อีเมลมีปุ่ม 'คลิกที่นี่เพื่อดูรายละเอียด'.",
+                prompt: "คุณได้รับอีเมลจาก 'ฝ่ายช่วยเหลือด้าน IT' ที่ขอให้คุณยืนยันข้อมูลบัญชีผู้ใช้ด้วยการคลิกลิงก์ที่แนบมา และระบุว่าจะปิดบัญชีของคุณหากไม่ดำเนินการภายใน 24 ชั่วโมง",
                 options: [
-                    { text: "คลิกปุ่มเพื่ออ่านนโยบาย", action: "click" },
-                    { text: "ลบอีเมลทิ้งและแจ้งฝ่าย IT", action: "report" }
+                    { text: "คลิกที่ลิงก์เพื่อยืนยันข้อมูล", action: "click-it" },
+                    { text: "ลบอีเมลทิ้งและแจ้งฝ่าย IT ผ่านช่องทางที่ปลอดภัย", action: "report-it" }
                 ],
-                correctAction: "report",
-                explanationCorrect: "ถูกต้อง! การแจ้งฝ่าย IT และลบอีเมลทิ้งเป็นวิธีที่ปลอดภัยที่สุด อีเมลฟิชชิ่งมักใช้หัวข้อที่ดึงดูดใจเพื่อหลอกล่อให้คุณคลิก",
-                explanationIncorrect: "ไม่ถูกต้อง. อีเมลนี้อาจเป็นอีเมลฟิชชิ่งที่สร้างขึ้นเพื่อขโมยข้อมูลของคุณ ทางที่ดีที่สุดคืออย่าคลิกที่ลิงก์ที่ไม่น่าเชื่อถือและแจ้งฝ่าย IT"
+                correctAction: "report-it",
+                explanationCorrect: "ถูกต้อง! ฝ่าย IT จะไม่ขอข้อมูลส่วนตัวหรือรหัสผ่านผ่านทางอีเมลเด็ดขาด การแจ้งผ่านช่องทางที่ปลอดภัยเป็นวิธีที่ถูกต้องที่สุด",
+                explanationIncorrect: "ไม่ถูกต้อง. อีเมลนี้เป็นอีเมลฟิชชิ่งที่สร้างขึ้นเพื่อขโมยข้อมูลบัญชีของคุณ คำขู่ว่าจะปิดบัญชีเป็นกลยุทธ์ที่ใช้เพื่อสร้างความตกใจและเร่งเร้าให้คุณทำตามคำขอ"
             },
             {
                 prompt: "ขณะที่คุณกำลังดูเว็บไซต์ข่าว คุณเห็นป๊อปอัปแจ้งเตือนว่า 'โทรศัพท์ของคุณติดไวรัส! ดาวน์โหลดแอปนี้เพื่อแก้ไขทันที'.",
@@ -162,7 +185,7 @@
 
         let currentScenarioIndex = 0;
         let score = 0;
-        let isProcessing = false; // ป้องกันการคลิกซ้ำขณะประมวลผล
+        let isProcessing = false;
 
         const app = document.getElementById('app');
         const startButton = document.getElementById('start-button');
@@ -173,12 +196,20 @@
         const finalScoreText = document.getElementById('final-score');
         const finalMessageText = document.getElementById('final-message');
 
+        // ฟังก์ชันสำหรับสุ่มลำดับ Array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
         // เริ่มเกม
         function startGame() {
             currentScenarioIndex = 0;
             score = 0;
             app.classList.remove('p-8');
-            app.classList.add('p-6');
+            app.classList.add('p-10');
             startButton.classList.add('hidden');
             endScreen.classList.add('hidden');
             statusDisplay.classList.add('hidden');
@@ -201,14 +232,17 @@
             
             // สร้าง prompt
             const promptElement = document.createElement('p');
-            promptElement.className = 'text-xl text-gray-800 font-semibold mb-4';
+            promptElement.className = 'text-xl text-gray-800 font-semibold mb-6';
             promptElement.textContent = `สถานการณ์ที่ ${currentScenarioIndex + 1}: ${scenario.prompt}`;
             scenarioContainer.appendChild(promptElement);
+
+            // สุ่มลำดับตัวเลือกก่อนแสดงผล
+            shuffleArray(scenario.options);
 
             // สร้างปุ่มตัวเลือก
             scenario.options.forEach(option => {
                 const button = document.createElement('button');
-                button.className = 'w-full py-4 px-4 bg-gray-200 text-gray-700 font-medium rounded-lg shadow-md hover:bg-gray-300 transition-colors duration-200 transform hover:scale-105';
+                button.className = 'w-full py-4 px-4 bg-secondary text-primary font-bold text-lg rounded-xl shadow-md hover:bg-blue-200 transition-colors duration-200 transform hover:scale-105';
                 button.textContent = option.text;
                 button.onclick = () => checkAnswer(option.action);
                 scenarioContainer.appendChild(button);
@@ -226,47 +260,64 @@
 
             if (isCorrect) {
                 score++;
-                statusText.textContent = `ถูกต้อง! ${scenario.explanationCorrect}`;
-                statusDisplay.classList.remove('bg-red-50', 'border-red-500', 'text-red-700');
-                statusDisplay.classList.add('bg-green-50', 'border-green-500', 'text-green-700');
-            } else {
-                statusText.textContent = `ผิดพลาด. ${scenario.explanationIncorrect}`;
-                statusDisplay.classList.remove('bg-green-50', 'border-green-500', 'text-green-700');
-                statusDisplay.classList.add('bg-red-50', 'border-red-500', 'text-red-700');
             }
 
-            statusDisplay.classList.remove('hidden');
-            scenarioContainer.classList.add('hidden');
+            // ลบปุ่มตัวเลือก
+            scenarioContainer.innerHTML = '';
 
-            // ไปยังสถานการณ์ถัดไปหลังจากหน่วงเวลา
-            setTimeout(() => {
-                currentScenarioIndex++;
-                displayScenario();
-            }, 3000);
+            // สร้างข้อความสถานะ
+            const statusBox = document.createElement('div');
+            statusBox.className = `p-4 rounded-xl border-l-4 ${isCorrect ? 'correct-bg correct-border' : 'incorrect-bg incorrect-border'}`;
+            
+            const statusMessage = document.createElement('p');
+            statusMessage.className = `font-medium text-lg ${isCorrect ? 'correct-text' : 'incorrect-text'}`;
+            statusMessage.textContent = isCorrect ? `ถูกต้อง! ${scenario.explanationCorrect}` : `ผิดพลาด. ${scenario.explanationIncorrect}`;
+            
+            statusBox.appendChild(statusMessage);
+            scenarioContainer.appendChild(statusBox);
+
+            // สร้างปุ่ม "ถัดไป"
+            const nextButton = document.createElement('button');
+            nextButton.className = 'w-full mt-6 py-3 px-4 bg-primary text-white font-bold rounded-xl shadow-lg hover:bg-blue-800 transition-colors duration-300 transform hover:scale-105';
+            nextButton.textContent = 'ถัดไป';
+            nextButton.onclick = handleNext;
+            scenarioContainer.appendChild(nextButton);
+        }
+
+        // ไปยังสถานการณ์ถัดไป
+        function handleNext() {
+            currentScenarioIndex++;
+            displayScenario();
         }
 
         // จบเกม
         function endGame() {
             app.classList.remove('p-6');
-            app.classList.add('p-8');
+            app.classList.add('p-10');
             scenarioContainer.classList.add('hidden');
             statusDisplay.classList.add('hidden');
             endScreen.classList.remove('hidden');
             finalScoreText.textContent = score;
 
+            let finalMessage = "";
+            let finalMessageColor = "";
+
             if (score === scenarios.length) {
-                finalMessageText.textContent = "ยอดเยี่ยมมาก! คุณได้ผ่านการทดสอบนี้ด้วยคะแนนเต็ม แสดงว่าคุณมีความเข้าใจด้านความปลอดภัยเป็นอย่างดี";
-                finalMessageText.classList.remove('text-red-600', 'text-blue-600');
-                finalMessageText.classList.add('text-green-600');
-            } else if (score >= 7) {
-                finalMessageText.textContent = "ดีมากครับ! คุณสามารถระบุภัยคุกคามส่วนใหญ่ได้ แต่ยังมีบางจุดที่ต้องระวัง ฝึกฝนต่อไปนะครับ!";
-                finalMessageText.classList.remove('text-red-600', 'text-green-600');
-                finalMessageText.classList.add('text-blue-600');
+                finalMessage = "ยอดเยี่ยม! คุณคือผู้เชี่ยวชาญด้านความปลอดภัยไซเบอร์";
+                finalMessageColor = "text-green-600";
+            } else if (score >= 8) {
+                finalMessage = "ดีมาก! คุณมีพื้นฐานที่แข็งแกร่งและระมัดระวังภัยคุกคามได้ดี";
+                finalMessageColor = "text-blue-600";
+            } else if (score >= 5) {
+                finalMessage = "พอใช้ได้ แต่ยังมีบางจุดที่ต้องฝึกฝนอีกครับ";
+                finalMessageColor = "text-orange-600";
             } else {
-                finalMessageText.textContent = "อย่าเพิ่งท้อนะครับ! การเรียนรู้เรื่อง Cybersecurity ต้องใช้เวลา ลองเริ่มการจำลองใหม่อีกครั้งเพื่อทบทวนบทเรียน";
-                finalMessageText.classList.remove('text-green-600', 'text-blue-600');
-                finalMessageText.classList.add('text-red-600');
+                finalMessage = "ต้องฝึกฝนอย่างหนัก! ลองเริ่มการจำลองใหม่อีกครั้งเพื่อทบทวนบทเรียน";
+                finalMessageColor = "text-red-600";
             }
+
+            finalMessageText.textContent = finalMessage;
+            finalMessageText.className = `text-xl font-semibold mb-6 ${finalMessageColor}`;
         }
         
         // ผูกปุ่มเริ่มต้นกับฟังก์ชัน startGame
